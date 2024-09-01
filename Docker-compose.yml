@@ -1,0 +1,16 @@
+services: 
+  service1:
+    image: postgres
+    environment:
+      - POSTGRES_DATABASE=asignacion_tareas
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=newpassword
+    ports:
+      - "5432:5432"
+  app:
+    image: dockerizandot
+    container_name: app_container
+    depends_on:
+      - service1
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=service1;Port=5432;Database=asignacion_tareas;Username=postgres;Password=your_password		
