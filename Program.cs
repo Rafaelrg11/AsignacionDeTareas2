@@ -54,7 +54,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddDbContext<ApplicationDbcontext>(options =>
-options.UseNpgsql(builder.Configuration.GetConnectionString("CadenaPostgre"))
+options.UseNpgsql(builder.Configuration.GetConnectionString("CadenaPgs"))
 );
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(

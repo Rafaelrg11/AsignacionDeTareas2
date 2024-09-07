@@ -1,16 +1,32 @@
-services: 
-  service1:
-    image: postgres
+services:
+  dbase:
+    image: postgres:15
+    container_name: dbasignacion
     environment:
-      - POSTGRES_DATABASE=asignacion_tareas
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=newpassword
+      POSTGRES_DB: asignacion_tareas
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: newpassword
     ports:
       - "5432:5432"
-  app:
-    image: dockerizandot
-    container_name: app_container
+    networks:
+      - app_network
+
+  application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: appasignacion
     depends_on:
-      - service1
+      - dbase
     environment:
-      - ConnectionStrings__DefaultConnection=Host=service1;Port=5432;Database=asignacion_tareas;Username=postgres;Password=your_password		
+      CadenaPgs: Host=dbasignacion;Database=asignacion_tareas;Port=5432;Username=postgres;Password=newpassword
+      ASPNETCORE_ENVIRONMENT: Development
+    ports:
+      - "8081:8081"
+
+    networks:
+      - app_network
+
+networks:
+  app_network:
+   driver: bridge:

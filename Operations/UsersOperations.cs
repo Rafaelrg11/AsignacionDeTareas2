@@ -34,7 +34,6 @@ namespace AsignacionDeTareas2.Operations
 
             return users;
         }
-
         public async Task<bool> UpdateUser(UserDto2 usersDto)
         {
             Users? users = await _dbcontext.Users.FindAsync(usersDto.idUser);
