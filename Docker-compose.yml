@@ -9,7 +9,7 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - app_network
+      - myappnetwork
 
   application:
     build:
@@ -19,14 +19,13 @@ services:
     depends_on:
       - dbase
     environment:
-      CadenaPgs: Host=dbasignacion;Database=asignacion_tareas;Port=5432;Username=postgres;Password=newpassword
+      CadenaPgs: Host=dbase;Database=asignacion_tareas;Port=5432;Username=postgres;Password=newpassword
       ASPNETCORE_ENVIRONMENT: Development
-    ports:
-      - "8081:8081"
-
     networks:
-      - app_network
+      - myappnetwork
+    ports:
+      - "8080:8080"
 
 networks:
-  app_network:
+  myappnetwork:
    driver: bridge:
